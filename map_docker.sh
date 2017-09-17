@@ -14,8 +14,8 @@ done
 # curl https://raw.githubusercontent.com/dockcross/dockcross/master/Makefile -o dockcross-Makefile
 # for image in $(make -f dockcross-Makefile display_images); do
 
-echo "copy dockcross/$image to makiolo/$image (with script change)"
 image=windows-x86
+echo "copy dockcross/$image to makiolo/$image (with script change)"
 docker pull -a makiolo/$image
 docker run dockcross/$image > $prefix/dockcross-$image && chmod u+x $prefix/dockcross-$image
 $prefix/dockcross-$image bash -c 'curl -s https://raw.githubusercontent.com/makiolo/cmaki_scripts/master/image.sh | bash'
