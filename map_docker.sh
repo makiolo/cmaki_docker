@@ -18,7 +18,7 @@ echo "copy dockcross/$image to makiolo/$image (with script change)"
 image=windows-x86
 docker pull -a makiolo/$image
 docker run dockcross/$image > $prefix/dockcross-$image && chmod u+x $prefix/dockcross-$image
-$prefix/dockcross-$image bash -c 'sudo apt install -y cmake'
+$prefix/dockcross-$image bash -c 'curl -s https://raw.githubusercontent.com/makiolo/cmaki_scripts/master/image.sh | bash'
 last_layer=$(docker ps -l -q)
 echo last layer: ${last_layer}
 docker commit $last_layer dockcross/$image:latest
