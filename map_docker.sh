@@ -30,4 +30,3 @@ docker commit $last_layer dockcross/$image:latest
 # docker build -t dockcross/$image:latest .
 docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
 docker push makiolo/$image
-
