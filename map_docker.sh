@@ -13,6 +13,11 @@ done
 
 curl https://raw.githubusercontent.com/dockcross/dockcross/master/Makefile -o dockcross-Makefile
 for image in $(make -f dockcross-Makefile display_images); do
+
+	if [[ "$image" == "dockcross/manylinux-x86" ]]; then
+		continue
+	fi
+
 	echo "copy dockcross/$image to makiolo/$image (with script change)"
 	echo "FROM dockcross/$image:latest" > Dockerfile
 	echo "ENV DEBIAN_FRONTEND noninteractive" >> Dockerfile
@@ -21,7 +26,7 @@ for image in $(make -f dockcross-Makefile display_images); do
 	docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
 	docker build . -t makiolo/$image
 	docker push makiolo/$image
-	
+
 	# clean
 	docker rmi -f dockcross/$image
 	docker rmi -f makiolo/$image
