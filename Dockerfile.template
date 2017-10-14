@@ -1,3 +1,0 @@
-FROM dockcross/${IMAGE}:latest
-ENV DEBIAN_FRONTEND noninteractive
-RUN curl -s https://raw.githubusercontent.com/makiolo/cmaki_scripts/master/cmaki_depends.sh | bash

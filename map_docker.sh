@@ -11,18 +11,15 @@ for image in $(make -f dockcross-Makefile display_images); do
 	fi
 done
 
-# curl https://raw.githubusercontent.com/dockcross/dockcross/master/Makefile -o dockcross-Makefile
-# for image in $(make -f dockcross-Makefile display_images); do
+curl https://raw.githubusercontent.com/dockcross/dockcross/master/Makefile -o dockcross-Makefile
+for image in $(make -f dockcross-Makefile display_images); do
+	echo "copy dockcross/$image to makiolo/$image (with script change)"
+	echo "FROM dockcross/$image:latest" > Dockerfile
+	echo "ENV DEBIAN_FRONTEND noninteractive" >> Dockerfile
+	echo "RUN curl -s https://raw.githubusercontent.com/makiolo/cmaki_scripts/master/cmaki_depends.sh | bash" >> Dockerfile
 
-image=windows-x86
-echo "copy dockcross/$image to makiolo/$image (with script change)"
-docker pull -a makiolo/$image
-docker run dockcross/$image > $prefix/dockcross-$image && chmod u+x $prefix/dockcross-$image
-$prefix/dockcross-$image bash -c 'curl -s https://raw.githubusercontent.com/makiolo/cmaki_scripts/master/cmaki_depends.sh | bash'
-last_layer=$(docker ps -l -q)
-echo last layer: ${last_layer}
-docker commit $last_layer dockcross/$image:latest
-docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-docker push makiolo/$image
+	docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+	docker build . -t makiolo/$image
+	docker push makiolo/$image
+done
 
-# done
