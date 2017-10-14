@@ -21,5 +21,8 @@ for image in $(make -f dockcross-Makefile display_images); do
 	docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
 	docker build . -t makiolo/$image
 	docker push makiolo/$image
+	
+	# clean
+	docker rmi -f dockcross/$image
+	docker rmi -f makiolo/$image
 done
-
