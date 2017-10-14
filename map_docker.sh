@@ -16,6 +16,9 @@ for image in $(make -f dockcross-Makefile display_images); do
 	if [[ "$image" == "manylinux-x86" ]]; then
 		continue
 	fi
+	if [[ "$image" == "manylinux-x64" ]]; then
+		continue
+	fi
 
 	echo "copy dockcross/$image to makiolo/$image (with script change)"
 	echo "FROM dockcross/$image:latest" > Dockerfile
