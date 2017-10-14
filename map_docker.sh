@@ -11,10 +11,9 @@ for image in $(make -f dockcross-Makefile display_images); do
 	fi
 done
 
-curl https://raw.githubusercontent.com/dockcross/dockcross/master/Makefile -o dockcross-Makefile
 for image in $(make -f dockcross-Makefile display_images); do
 
-	if [[ "$image" == "dockcross/manylinux-x86" ]]; then
+	if [[ "$image" == "manylinux-x86" ]]; then
 		continue
 	fi
 
