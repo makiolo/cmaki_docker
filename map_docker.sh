@@ -34,3 +34,4 @@ for image in $(make -f dockcross-Makefile display_images); do
 	docker rmi -f dockcross/$image
 	docker rmi -f makiolo/$image
 done
+
