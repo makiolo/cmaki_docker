@@ -1,5 +1,4 @@
 services: docker
 os: linux
 script:
-    - ./map_docker.sh
-
+    - ./build.sh
