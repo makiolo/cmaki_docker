@@ -22,9 +22,11 @@ for image in $(make -f dockcross-Makefile display_images); do
 	fi
 
 	echo "copy dockcross/$image to makiolo/$image (with script change)"
-	echo "FROM dockcross/$image:latest" > Dockerfile
-	echo "ENV DEBIAN_FRONTEND noninteractive" >> Dockerfile
-	echo "RUN curl -s https://raw.githubusercontent.com/makiolo/cmaki_scripts/master/cmaki_depends.sh | bash" >> Dockerfile
+	cat<<EOF>Dockerfile
+FROM dockcross/$image:latest
+ENV DEBIAN_FRONTEND noninteractive
+RUN curl -s https://raw.githubusercontent.com/makiolo/cmaki_scripts/master/cmaki_depends.sh | bash
+EOF
 
 	docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
 	docker build . -t makiolo/$image
