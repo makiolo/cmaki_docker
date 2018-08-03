@@ -36,4 +36,3 @@ EOF
 	docker rmi -f dockcross/$image
 	docker rmi -f makiolo/$image
 done
-
